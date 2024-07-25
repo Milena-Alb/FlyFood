@@ -8,7 +8,6 @@ def lerMatriz(arquivo):
     matriz = []
     pontos_matriz = {}
     ponto_origem = None
-
     for i in range(dimensoes_matriz[0]):
         linha = linhas[i + 1].strip().split()
         matriz.append(linha)
@@ -17,7 +16,6 @@ def lerMatriz(arquivo):
                 pontos_matriz[linha[j]] = (i, j)
             elif linha[j] == 'R':
                 ponto_origem = (i, j)
-    
     return matriz, pontos_matriz, ponto_origem
 
 def calcularDistancia(ponto_1, ponto_2):
@@ -28,7 +26,6 @@ def menorPercurso(pontos, ponto_origem):
     menor_distancia = float('inf')
     pontos_chave = list(pontos.keys())
     permutacoes = itertools.permutations(pontos_chave)
-    percursos = []
 
     for permutacao in permutacoes:
         distancia_total = 0
@@ -37,32 +34,23 @@ def menorPercurso(pontos, ponto_origem):
             distancia_total += calcularDistancia(ponto_atual, pontos[ponto])
             ponto_atual = pontos[ponto]
         distancia_total += calcularDistancia(ponto_atual, ponto_origem)
-        percursos.append((permutacao, distancia_total))
         if distancia_total < menor_distancia:
             menor_distancia = distancia_total
             menor_percurso = permutacao
-            
-
-    return percursos, menor_percurso, menor_distancia
+    return menor_percurso, menor_distancia
 
 def main():
     inicio = time.time()
-    arquivo = 'matriz2.txt'
+    arquivo = '.\matrizes_testes\matriz_teste5.txt'
     matriz, pontos_matriz, ponto_origem = lerMatriz(arquivo)
-    percursos, menor_percurso_resultado, menor_distancia = menorPercurso(pontos_matriz, ponto_origem)
-    
-    print("Todos os percursos e suas distâncias:")
-    for rota, distancia in percursos:
-        print(f"{' '.join(rota)}: {distancia} dronômetros")
+    menor_percurso_resultado, menor_distancia = menorPercurso(pontos_matriz, ponto_origem)
 
-    # Exibir o menor percurso
     print("\nMenor percurso encontrado:")
     print(f"{' '.join(menor_percurso_resultado)}: {menor_distancia} dronômetros")
 
-
-    fim = time.time()  # Marcar o fim da execução
-    duracao = fim - inicio  # Calcular a duração
-    print(f"Tempo de execução: {duracao:.2f} segundos")
+    fim = time.time() 
+    duracao = fim - inicio  
+    print(f"Tempo de execução: {duracao: .5f} segundos")
 
 if __name__ == "__main__":
     main()
