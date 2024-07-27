@@ -41,7 +41,7 @@ def menorPercurso(pontos, ponto_origem):
 
 def main():
     inicio = time.time()
-    arquivo = '.\matrizes_testes\matriz_teste5.txt'
+    arquivo = '.\matrizes_testes\matriz_teste4.txt'
     matriz, pontos_matriz, ponto_origem = lerMatriz(arquivo)
     menor_percurso_resultado, menor_distancia = menorPercurso(pontos_matriz, ponto_origem)
 
